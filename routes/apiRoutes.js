@@ -5,15 +5,16 @@ const connection = require('../config/connection')
 
 var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
 var todos = [{ todo: 'wash clothes' }, { todo: 'get haircut' }]
+var myData = []
 
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, res) => {
     if (err) throw err
-    console.log(res[0].text)
-    connection.end()
+    myData = res
+    console.log(myData)
   })
   res.render('home', {
-    todos: todos,
+    todos: myData,
     message: 'World'
   })
 })
