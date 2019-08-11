@@ -8,6 +8,7 @@ var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, data) => {
     if (err) throw err
+    console.log(data)
     res.render('home', {
       todos: data,
       message: 'World'
@@ -16,8 +17,14 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body)
-  connection.query('INSERT INTO todos (text) VALUES (?)', [req.body.todo])
+  connection.query(
+    'INSERT INTO todos (text) VALUES (?)',
+    [req.body.todo],
+    (err, res) => {
+      if (err) throw err
+      console.log('Successfully added')
+    }
+  )
 })
 
 router.get('/weekday', (req, res) => {
