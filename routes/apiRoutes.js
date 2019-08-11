@@ -1,10 +1,16 @@
 const express = require('express')
 const router = express.Router()
+const mysql = require('mysql')
+const connection = require('../config/connection')
 
 var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
 var todos = [{ todo: 'wash clothes' }, { todo: 'get haircut' }]
 
 router.get('/', (req, res) => {
+  connection.query('SELECT * FROM todos', (err, res) => {
+    if (err) throw err
+    console.log(res)
+  })
   res.render('home', {
     todos: todos,
     message: 'World'
@@ -13,7 +19,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   todos.push(req.body)
-  console.log(todos)
 })
 
 router.get('/weekday', (req, res) => {
