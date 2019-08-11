@@ -1,0 +1,39 @@
+<style>
+  li {
+    color: black;
+    background-color: wheat;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 50%;
+    font-family: sans-serif;
+  }
+</style>
+
+<h1>Hello {{message}}</h1>
+<input type="text" id="todoText">
+<input type="button" value="Add" id="submitBtn">
+<ul>
+  {{#each todos}}
+  <li>{{todo}}</li>
+  {{/each}}
+</ul>
+
+<script>
+  $(document).ready(() => {
+    $('#submitBtn').on('click', () => {
+      const text = $('#todoText').val()
+      const todoItem = {
+        todo: text
+      }
+      const queryURL = 'http://localhost:8080'
+
+      $.ajax({
+        url: queryURL,
+        type: 'POST',
+        data: todoItem
+      })
+
+      window.location.replace("http://localhost:8080");
+    })
+  })
+</script>
