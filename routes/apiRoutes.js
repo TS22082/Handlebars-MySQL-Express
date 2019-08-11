@@ -4,7 +4,6 @@ const mysql = require('mysql')
 const connection = require('../config/connection')
 
 var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
-var todos = [{ todo: 'wash clothes' }, { todo: 'get haircut' }]
 
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, data) => {
@@ -17,7 +16,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  todos.push(req.body)
+  console.log(req.body)
+  connection.query('INSERT INTO todos (text) VALUES (?)', [req.body.todo])
 })
 
 router.get('/weekday', (req, res) => {
