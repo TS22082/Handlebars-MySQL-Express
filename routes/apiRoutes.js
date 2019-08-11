@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
   connection.query(
     'INSERT INTO todos (text) VALUES (?)',
     [req.body.todo],
-    (err, res) => {
+    (err, data) => {
       if (err) throw err
       console.log('Successfully added')
     }
@@ -28,9 +28,18 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  connection.query('DELETE FROM todos where (?)', [req.body], (err, res) => {
+  connection.query('DELETE FROM todos where (?)', [req.body], (err, data) => {
     if (err) throw err
     console.log('Successfully deleted')
+  })
+
+  connection.query('SELECT * FROM todos', (err, data) => {
+    if (err) throw err
+    console.log(data)
+    res.render('home', {
+      todos: data,
+      message: 'World'
+    })
   })
 })
 
