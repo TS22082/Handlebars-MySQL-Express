@@ -27,6 +27,13 @@ router.post('/', (req, res) => {
   )
 })
 
+router.delete('/', (req, res) => {
+  connection.query('DELETE FROM todos where (?)', [req.body], (err, res) => {
+    if (err) throw err
+    console.log('Successfully deleted')
+  })
+})
+
 router.get('/weekday', (req, res) => {
   res.render('index', lunches[0])
 })
