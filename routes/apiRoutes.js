@@ -9,7 +9,8 @@ var todos = [{ todo: 'wash clothes' }, { todo: 'get haircut' }]
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, res) => {
     if (err) throw err
-    console.log(res)
+    console.log(res[0].text)
+    connection.end()
   })
   res.render('home', {
     todos: todos,
