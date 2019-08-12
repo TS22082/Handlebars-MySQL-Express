@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const mysql = require('mysql')
 const connection = require('../config/connection')
 
 var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
@@ -8,7 +7,6 @@ var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, data) => {
     if (err) throw err
-    console.log(data)
     res.render('home', {
       todos: data,
       message: 'World'
@@ -35,12 +33,21 @@ router.delete('/', (req, res) => {
 
   connection.query('SELECT * FROM todos', (err, data) => {
     if (err) throw err
-    console.log(data)
     res.render('home', {
-      todos: data,
-      message: 'World'
+      todos: data
     })
   })
+})
+
+router.patch('/', (req, res) => {
+  connection.query(
+    'UPDATE todos SET ? WHERE ?',
+    [req.body.text, reg.body.id],
+    err => {
+      if (err) throw err
+      console.log('Successfully updated')
+    }
+  )
 })
 
 router.get('/weekday', (req, res) => {
