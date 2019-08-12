@@ -43,9 +43,9 @@ router.patch('/', (req, res) => {
   connection.query(
     'UPDATE todos SET ? WHERE ?',
     [req.body.text, reg.body.id],
-    err => {
+    (err, data) => {
       if (err) throw err
-      console.log('Successfully updated')
+      console.log(`${data.affectedRows} todo updated`)
     }
   )
 })
