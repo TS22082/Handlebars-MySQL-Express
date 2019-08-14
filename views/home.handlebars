@@ -36,7 +36,7 @@
         data: todoItem
       })
 
-      window.location.replace("http://localhost:8080");
+      window.location.replace("/");
     })
 
     // Delete todo
@@ -53,32 +53,50 @@
         data: deleteTodo
       })
 
-      window.location.replace("http://localhost:8080");
+      window.location.replace("/");
     })
 
-    // update todo
-    $(document).on('click', '#updateBtn', function () {
-      const updateText = {
-        text: $('#todoText').val()
-      }
+    // update todo new
 
+    $(document).on('click', '#updateBtn', function () {
       const updateID = {
         id: $(this).attr('data')
-      }
-
-      const updateData = {
-        data: [updateText, updateID]
       }
 
       const queryURL = 'http://localhost:8080'
 
       $.ajax({
         url: queryURL,
-        type: 'PATCH',
-        data: updateData
+        type: 'GET',
+        data: updateID,
+        success: function () {
+          window.location.replace("/edit")
+        }
       })
-
-      window.location.replace("http://localhost:8080")
     })
+    // update todo
+    //    $(document).on('click', '#updateBtn', function () {
+    //      const updateText = {
+    //        text: $('#todoText').val()
+    //      }
+
+    //      const updateID = {
+    //        id: $(this).attr('data')
+    //      }
+
+    //     const updateData = {
+    //        data: [updateText, updateID]
+    //      }
+
+    //      const queryURL = 'http://localhost:8080'
+
+    //      $.ajax({
+    //        url: queryURL,
+    //        type: 'PATCH',
+    //        data: updateData
+    //      })
+
+    //      window.location.replace("/")
+    //    })
   })
 </script>

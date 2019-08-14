@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../config/connection')
 
-var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
-
 router.get('/', (req, res) => {
   connection.query('SELECT * FROM todos', (err, data) => {
     if (err) throw err
@@ -51,8 +49,11 @@ router.patch('/', (req, res) => {
   )
 })
 
-router.get('/weekday', (req, res) => {
-  res.render('index', lunches[0])
+var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
+var message = { text: 'hello world' }
+
+router.get('/edit', (req, res) => {
+  res.render('index', message)
 })
 
 router.get('/weekend', (req, res) => {
