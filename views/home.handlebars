@@ -22,15 +22,13 @@
 
 <script>
   $(document).ready(() => {
-
-    const queryURL = 'http://localhost:8080'
-
     // Submit todo
     $('#submitBtn').on('click', () => {
       const text = $('#todoText').val()
       const todoItem = {
         todo: text
       }
+      const queryURL = 'http://localhost:8080'
 
       $.ajax({
         url: queryURL,
@@ -47,6 +45,8 @@
         id: $(this).attr('data')
       }
 
+      const queryURL = 'http://localhost:8080'
+
       $.ajax({
         url: queryURL,
         type: 'DELETE',
@@ -58,15 +58,19 @@
 
     // update todo
     $(document).on('click', '#updateBtn', function () {
-      const updateTodo = {
-        text = $('#todoText').val()
+      const updatedTodo = {
+        text: $('#todoText').val(),
         id: $(this).attr('data')
       }
+
+      const queryURL = 'http://localhost:8080'
+
+      console.log(updatedTodo)
 
       $.ajax({
         url: queryURL,
         type: 'PATCH',
-        data: updateTodo
+        data: updatedTodo
       })
 
       window.location.replace("http://localhost:8080");

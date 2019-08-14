@@ -42,7 +42,7 @@ router.delete('/', (req, res) => {
 router.patch('/', (req, res) => {
   connection.query(
     'UPDATE todos SET ? WHERE ?',
-    [req.body.text, reg.body.id],
+    [req.body.text, req.body.id],
     (err, data) => {
       if (err) throw err
       console.log(`${data.affectedRows} todo updated`)
