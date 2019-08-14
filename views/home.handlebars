@@ -58,22 +58,27 @@
 
     // update todo
     $(document).on('click', '#updateBtn', function () {
-      const updatedTodo = {
-        text: $('#todoText').val(),
+      const updateText = {
+        text: $('#todoText').val()
+      }
+
+      const updateID = {
         id: $(this).attr('data')
+      }
+
+      const updateData = {
+        data: [updateText, updateID]
       }
 
       const queryURL = 'http://localhost:8080'
 
-      console.log(updatedTodo)
-
       $.ajax({
         url: queryURL,
         type: 'PATCH',
-        data: updatedTodo
+        data: updateData
       })
 
-      window.location.replace("http://localhost:8080");
+      window.location.replace("http://localhost:8080")
     })
   })
 </script>
