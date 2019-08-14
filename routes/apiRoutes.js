@@ -49,11 +49,19 @@ router.patch('/', (req, res) => {
   )
 })
 
-var lunches = [{ lunch: 'Sandwich' }, { lunch: 'Salad' }]
-var message = { text: 'hello world' }
+let todoToUpdate
 
 router.get('/edit', (req, res) => {
-  res.render('index', message)
+  // console.log(todoToUpdate)
+  res.render('index', todoToUpdate)
+})
+
+router.post('/edit', (req, res) => {
+  connection.query('SELECT * FROM todos where (?)', [req.body], (err, data) => {
+    if (err) throw err
+    todoToUpdate = data[0]
+    console.log(todoToUpdate)
+  })
 })
 
 router.get('/weekend', (req, res) => {
