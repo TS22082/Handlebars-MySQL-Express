@@ -16,18 +16,22 @@
   {{#each todos}}
   <li>{{text}}</li>
   <button data={{id}} id="deleteBtn">Delete</button>
+  <button data={{id}} id="updateBtn">Update</button>
   {{/each}}
 </ul>
 
 <script>
   $(document).ready(() => {
+
+    const queryURL = 'http://localhost:8080'
+
+    // Submit todo
     $('#submitBtn').on('click', () => {
       const text = $('#todoText').val()
       const todoItem = {
         todo: text
       }
 
-      const queryURL = 'http://localhost:8080'
       $.ajax({
         url: queryURL,
         type: 'POST',
@@ -37,16 +41,32 @@
       window.location.replace("http://localhost:8080");
     })
 
+    // Delete todo
     $(document).on('click', '#deleteBtn', function () {
       const deleteTodo = {
         id: $(this).attr('data')
       }
-      const queryURL = 'http://localhost:8080'
 
       $.ajax({
         url: queryURL,
         type: 'DELETE',
         data: deleteTodo
+      })
+
+      window.location.replace("http://localhost:8080");
+    })
+
+    // update todo
+    $(document).on('click', '#updateBtn', function () {
+      const updateTodo = {
+        text = $('#todoText').val()
+        id: $(this).attr('data')
+      }
+
+      $.ajax({
+        url: queryURL,
+        type: 'PATCH',
+        data: updateTodo
       })
 
       window.location.replace("http://localhost:8080");
